@@ -424,7 +424,7 @@ body{
 //  DATA  (pre-filled from 参赛人员.xlsx)
 // ─────────────────────────────────────────────
 const EMOJIS=['🐼','🦊','🐯','🦁','🐻','🦄','🔥','💪','🌟','🐸'];
-const PAY_RATIO=[0,0.1,0.4,0.5]; // rank 1=free, 2=10%, 3=40%, 4=50%
+const PAY_RATIO=[0.1,0.2,0.3,0.4]; // rank 1=10%, 2=20%, 3=30%, 4=40%
 
 let D={
   name:'2026年减脂挑战赛',
@@ -638,7 +638,6 @@ function renderPayments(){
     const amt=Math.round(ratio*cost);
     const div=document.createElement('div');
     div.className='pay-row';
-    const isFree=i===0;
     div.innerHTML=`
       <div class="pay-who">
         <span>${p.emoji}</span>
@@ -647,9 +646,7 @@ function renderPayments(){
           <div class="pay-sub">减 ${p.loss}kg（第${i+1}名）</div>
         </div>
       </div>
-      ${isFree
-        ?`<div class="pay-amt free">🎉 不用给钱</div>`
-        :`<div class="pay-amt owe">¥${amt}<span class="pay-pct">${Math.round(ratio*100)}%</span></div>`}`;
+      <div class="pay-amt ${i===0?'free':'owe'}">¥${amt}<span class="pay-pct">${Math.round(ratio*100)}%</span></div>`;
     list.appendChild(div);
   });
 }
