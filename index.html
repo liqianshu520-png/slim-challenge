@@ -485,7 +485,7 @@ function ranked(){
     const pct=loss!==null?+(loss/p.sw*100).toFixed(2):null;
     return{...p,loss,pct,done:loss!==null};
   }).sort((a,b)=>{
-    if(a.done&&b.done)return b.loss-a.loss;
+    if(a.done&&b.done)return b.pct-a.pct;
     if(a.done)return -1;
     if(b.done)return 1;
     return 0;
@@ -544,7 +544,7 @@ function render(){
     document.getElementById('champ-banner').style.display='block';
     document.getElementById('champ-icon').textContent=champion.emoji;
     document.getElementById('champ-name').textContent=champion.emoji+' '+champion.name;
-    document.getElementById('champ-stat').textContent=`减重 ${champion.loss} kg，下降 ${champion.pct}%`;
+    document.getElementById('champ-stat').textContent=`体重下降 ${champion.pct}%，减重 ${champion.loss} kg`;
     const cp=document.getElementById('champ-photo');
     const cps=D.photos&&D.photos[champion.name];
     if(cps){cp.src=cps;cp.style.display='block';}else{cp.style.display='none';}
@@ -590,7 +590,7 @@ function render(){
       </div>
       <div class="p-loss">
         ${p.done
-          ?`<div class="loss-num">-${p.loss}kg</div><div class="loss-pct">↓${p.pct}%</div>`
+          ?`<div class="loss-num">↓${p.pct}%</div><div class="loss-pct">-${p.loss}kg</div>`
           :`<div class="loss-pending">待统计</div>`}
       </div>`;
     board.appendChild(card);
@@ -643,7 +643,7 @@ function renderPayments(){
         <span>${p.emoji}</span>
         <div>
           <div>${p.name}</div>
-          <div class="pay-sub">减 ${p.loss}kg（第${i+1}名）</div>
+          <div class="pay-sub">↓${p.pct}%（第${i+1}名）· 减${p.loss}kg</div>
         </div>
       </div>
       <div class="pay-amt ${i===0?'free':'owe'}">¥${amt}<span class="pay-pct">${Math.round(ratio*100)}%</span></div>`;
