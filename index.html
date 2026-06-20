@@ -375,16 +375,11 @@ body{
   </div>
   <!-- SHARE -->
   <div class="share-wrap">
-    <button class="share-btn" onclick="doShare()">📤 分享给群友</button>
+    <button class="share-btn" onclick="copyFixed()">📤 复制链接发群里</button>
   </div>
 
-  <!-- ADMIN TOGGLE -->
-  <div class="admin-toggle">
-    <button class="admin-open-btn" onclick="toggleAdmin()">⚙️ 管理员入口</button>
-  </div>
-
-  <!-- ADMIN PANEL -->
-  <div class="admin-box" id="admin-box">
+  <!-- ADMIN PLACEHOLDER (hidden) -->
+  <div style="display:none" id="admin-box">
     <!-- AUTH VIEW -->
     <div id="auth-view">
       <div style="margin-bottom:12px">
@@ -754,10 +749,10 @@ function doSave(){
 // ─────────────────────────────────────────────
 //  SHARE
 // ─────────────────────────────────────────────
-function doShare(){
-  const url=getShareURL();
+function copyFixed(){
+  const url='https://liqianshu520-png.github.io/slim-challenge/';
   if(navigator.share){
-    navigator.share({title:'🏋️ '+D.name,text:'快来看减脂排行榜！',url}).catch(()=>copyURL(url));
+    navigator.share({title:'🏆 减脂挑战赛排行榜',text:'快来看谁减得最多！',url}).catch(()=>copyURL(url));
   } else { copyURL(url); }
 }
 
